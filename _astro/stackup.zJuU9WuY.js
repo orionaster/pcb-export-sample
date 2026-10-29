@@ -1,0 +1,15 @@
+var e=e=>String(e).replace(/[<>&"]/g,e=>({"<":`&lt;`,">":`&gt;`,"&":`&amp;`,'"':`&quot;`})[e]);function t(e){return e<=1?{cores:0,bonds:0}:e===2?{cores:1,bonds:0}:{cores:e/2-1,bonds:e/2}}function n(e){return e<=1?[]:e===2?[`core`]:Array.from({length:e-1},(e,t)=>(t+1)%2==0?`core`:`bond`)}function r(e,t){return t===1?`Signal`:e===0?`Component`:e===t-1?`Solder`:e===1||e===t-2?`Reference plane`:`Signal / plane`}function i({layers:i=6,mask:a=`green`,backdrill:o=!1,hole:s=.3,thickness:c=1.6,labels:l=!0}={}){let u=l!==!1,d=n(i),f=[{kind:`mask`,label:`Solder mask, ${a}`}];for(let e=0;e<i;e+=1)f.push({kind:`cu`,label:`L${e+1}  ${r(e,i)}`}),e<d.length&&f.push({kind:d[e],label:d[e]===`core`?`Core`:`Bond ply (prepreg)`});f.push({kind:`mask`,label:`Solder mask, ${a}`});let p={cu:`#a8682f`,bond:`#1e2724`,core:`#3a463f`,mask:`#0d1311`},m={cu:`#d99a5c`,bond:`#2c3833`,core:`#4b5a52`,mask:`#232f28`},h=f.map(e=>e.kind===`cu`?9:e.kind===`mask`?5:e.kind===`core`?23:15),g=230/h.reduce((e,t)=>e+t,0),_=h.map(e=>Math.max(1.8,e*g)),v=[],y=[],b=30;f.forEach((t,n)=>{let r=Math.round(_[n]*100)/100,i=r<3.2?0:.7;v.push(`<rect class="su-band" style="--i:${Math.min(n,18)}" x="84" y="${b}" width="368" height="${r}" fill="${p[t.kind]}" stroke="${m[t.kind]}" stroke-width="${i}"/>`),t.kind!==`mask`&&u&&r>=7&&y.push(`<text class="su-lab" style="--i:${Math.min(n,18)}" x="470" y="${b+r/2+4}" fill="${t.kind===`cu`?`#d3ddd7`:`#6a7772`}" font-size="11.5" font-family="IBM Plex Mono, monospace">${e(t.label)}</text>`),b=Math.round((b+r)*100)/100});let x=b,S=Math.round((x+40)*100)/100,C=x-5,w=Math.max(4,Math.min(8,s*18)),T=2.4,E=`<g>
+<rect x="${268-w-T}" y="35" width="${T}" height="${C-35}" fill="#d99a5c"/>
+<rect x="${268+w}" y="35" width="${T}" height="${C-35}" fill="#d99a5c"/>
+<rect x="${268-w}" y="35" width="${w*2}" height="${C-35}" fill="#0a0c0b"/>
+<ellipse cx="268" cy="35" rx="${w+T+2}" ry="2.4" fill="#d99a5c"/>
+<ellipse cx="268" cy="${C}" rx="${w+T+2}" ry="2.4" fill="#d99a5c"/>
+</g>`,D=o?(C-35)*.3:0,O=o?`<g><rect x="${268-w}" y="35" width="${w*2}" height="${D}" fill="#0a0c0b"/>
+<path d="M${268-w-15} ${35+D} h30" stroke="#e0894a" stroke-width="1.5"/>
+<text x="470" y="${35+D+4}" fill="#e0894a" font-size="11" font-family="IBM Plex Mono, monospace">backdrill stops here</text></g>`:``,k=`<g>
+<path d="M268 ${x} v24" stroke="#3b463f" stroke-width=".8"/>
+<text x="84" y="${x+26+4}" fill="#6a7772" font-size="11" font-family="IBM Plex Mono, monospace">${e(`plated through hole ${s.toFixed(2)} mm${o?`, backdrilled`:``}`)}</text>
+</g>`,A=`<g>
+<path d="M62 30 h6 M62 ${x-5} h6 M65 30 v${x-5-30}" stroke="#4b5a52" stroke-width=".8"/>
+<text x="56" y="${(30+x)/2}" fill="#8d9a94" font-size="11.5" font-family="IBM Plex Mono, monospace" text-anchor="middle" transform="rotate(-90 56 ${(30+x)/2})">${e(c.toFixed(2))} mm finished</text>
+</g>`,{cores:j,bonds:M}=t(i);return{svg:`<svg viewBox="0 0 ${u?680:474} ${S}" role="img" aria-label="Cross section of a ${i}-layer build-up using ${j} cores and ${M} bond plies">${A}${v.join(``)}${E}${O}${k}${y.join(``)}</svg>`,cores:j,bonds:M}}export{i as n,t};

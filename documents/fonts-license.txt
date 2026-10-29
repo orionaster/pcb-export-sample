@@ -1,0 +1,23 @@
+Fonts bundled with this site
+===========================
+
+Archivo (variable, 400-700)
+  src/assets/fonts/archivo-latin-wght.woff2
+  Copyright (c) 2010-2022, Omnibus-Type (www.omnibus-type.com | omnibus.type@gmail.com)
+  Licensed under the SIL Open Font License, Version 1.1
+  Source: https://github.com/googlesrc/assets/fonts/tree/main/ofl/archivo
+  Package: https://github.com/fontsource/font-src-tree
+
+IBM Plex Mono (400, 500)
+  src/assets/fonts/plex-mono-400.woff2
+  src/assets/fonts/plex-mono-500.woff2
+  Copyright (c) 2017 IBM Corp. with Reserved Font Name "Plex"
+  Licensed under the SIL Open Font License, Version 1.1
+  Source: https://github.com/IBM/plex
+
+Both files are the latin subset, unmodified from the Fontsource builds.
+The full OFL 1.1 text is at https://openfontlicense.org/open-font-license-official-text/
+
+Under the OFL these fonts may be bundled and redistributed with the site as long as
+the font files themselves are not sold separately and the copyright notices above
+travel with them, which is the case here.
